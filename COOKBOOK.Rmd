@@ -1,0 +1,35 @@
+---
+title: "COOKBOOK"
+output: html_document
+---
+
+## Intro
+This cookbook describes the tidy dataset
+
+## Subjects
+The dataset contains observations for 30 subjects with identifiers from 1 to 30. 
+
+```{r}
+data <- read.table("tidy.txt", header = TRUE) 
+unique(data$subject)
+length(unique(data$subject))
+```
+
+## Activities
+The dataset contains 6 activities.
+
+```{r}
+data <- read.table("tidy.txt", header = TRUE) 
+unique(data$activity)
+length(unique(data$activity))
+```
+
+## Variables
+* The dataset contains 86 variables that contain the measurements for the subjects and their activities. 
+* The measurements are numerical means of the total dataset
+
+```{r}
+data <- read.table("tidy.txt", header = TRUE) 
+str(data)
+```
+

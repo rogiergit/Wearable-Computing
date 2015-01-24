@@ -1,0 +1,211 @@
+---
+title: "README"
+output: html_document
+---
+
+## Location of the run_analysis.R script
+The Run_analysis script goes in the UCI directory which also contains the train and test folders
+
+```{r, message=FALSE, error=FALSE, warning=FALSE, results="hide"}
+setwd("E:\\Dev\\R\\Coursera\\3 Cleaning\\Wearable-Computing\\")
+```
+
+
+## Setting up packages and environment
+```{r, message=FALSE, error=FALSE, warning=FALSE, results="hide"}
+# Load packages we are going to work with
+library(lubridate)      # Working with dates
+library(dplyr)          # Working with tables
+library(ggplot2)        # Working with plots
+library(tidyr)          # Tidying data
+library(plyr)
+library(data.table)
+
+# Set the locale the english
+Sys.setlocale("LC_TIME", "English")
+```
+
+
+
+## 1. Merging the training and the test sets to create one data set.
+
+### Reading the activity rows
+```{r}
+
+# Read the activity rows for test
+activitytest<-read.table("./test/y_test.txt", header=F)
+
+# Read the activity rows for train
+activitytrain<-read.table("./train/y_train.txt", header=F)
+
+# Add the test and train data together
+activity<-rbind(activitytest, activitytrain)
+
+# Check the rows structure
+dim(activity) #10299 activity rows
+
+# Create a column name
+colnames(activity)<- c("activityid")
+
+```
+
+
+## Reading the subject rows
+```{r}
+# Read the subject rows for test
+subjecttest<-read.table("./test/subject_test.txt", header=F)
+
+# Read the subject rows for train
+subjecttrain<-read.table("./train/subject_train.txt", header=F)
+
+# Add the test and train data together
+subject<-rbind(subjecttest, subjecttrain)
+
+# Check the rows structure
+dim(subject)
+
+# Create a column name
+colnames(subject)<- c("subject")
+```
+
+### Reading the featurelabels
+```{r}
+# Read the featurelabels for the columns of the test and train data
+featurelabels<-read.table("features.txt", header=F, sep=" ")
+
+# Check the structure
+dim(featurelabels) #561 column labels
+
+# Create column names
+colnames(featurelabels)<-c("featurenr", "featurename")
+```
+
+### Read the test and train data
+```{r}
+# Read the x-test feature data
+featurestest<-read.table("./test/x_test.txt", header=F)
+
+# Read the x-train feature data
+featurestrain<-read.table("./train/x_train.txt", header=F)
+
+# Add the test and train data together
+features<-rbind(featurestest, featurestrain)
+
+# Check the structure
+dim(features) #561 columns
+```
+
+### Create the combined dataset
+```{r}
+# Create column names for the featurelabels
+# Ensure that the column names are unique, otherwise we'll encounter errors later when merging
+colnames(features) <- make.names(featurelabels$featurename, unique=TRUE)
+
+# add the activity, subject feature data together
+data<-cbind(activity, subject, features)
+
+# Recheck the structure
+dim(data)
+
+```
+
+
+
+
+# 2. Extract only the measurements on the mean and standard deviation for each measurement. 
+```{r}
+
+# Create a new table containing only columns with subjects, activityid, mean and std
+datameanstd <- select(data,matches("subject|activityid|mean|std"))
+
+# Check the structure
+dim(datameanstd)
+
+```
+
+
+# 3. Uses descriptive activity names to name the activities in the data set
+```{r}
+
+# Read the labels for the activities
+activitylabels<-read.table("activity_labels.txt", header=F, sep=" ")
+
+# Check the structure
+head(activitylabels)
+
+# Create column names for activity labels
+colnames(activitylabels)<- c("activityid","activity")
+
+# Add the activity label to the dataset using a merge on activityid
+data <- merge(x=datameanstd, y=activitylabels, by="activityid")
+
+# Check that activity has been merged correctly
+unique(data[,c("activity")])
+
+# Exclude the activityid field
+data <- select(data, -activityid)
+
+# Check the structure
+dim(data)
+str(data)
+
+```
+
+
+
+# 4. Appropriately labels the data set with descriptive variable names. 
+```{r}
+
+#Cleanup the variable names by replacing characters
+colnames<-colnames(data)
+colnames<-gsub("-", " ", colnames) #Rplace - with a space
+colnames<-gsub("\\.", " ", colnames) #Replace . with a space
+colnames<-gsub("\\  ", " ", colnames) #Replace . with a space
+colnames<-gsub("\\  ", " ", colnames) #Replace . with a space
+colnames<-gsub("\\  ", " ", colnames) #Replace . with a space
+colnames<-gsub("tBody", "Body", colnames) #Remove the t
+colnames<-gsub("tGravity", "Gravity", colnames) #Remove the t
+colnames<-gsub("fBody", "Body", colnames) #Remove the f
+colnames<-gsub("^\\s+|\\s+$", "", colnames) #Strip leading and trailing spaces
+
+# Recreate the column names for the dataset
+colnames <-  make.names(colnames, unique=TRUE)
+colnames(data) <- colnames
+
+# Check the structure
+str(data)
+
+#the subject and activityid fields are the first 2 columns
+#then follow the feature columns 
+#the final column is the activity field
+
+```
+
+
+
+## 5. Create tidy dataset from step 4
+From the data set in step 4, create a second, independent tidy data set with the average of each variable for each activity and each subject
+```{r}
+
+# Create a datafram table (Dplyr)
+tidy <- tbl_df(data)
+
+# Group the data by subject and activity
+tidygroup <-group_by(tidy, subject, activity)
+
+# Calculate the mean for all features using a Dplyr function
+tidymean <- summarise_each(tidygroup, funs(mean))
+
+# Check the first 10 rows and 6 columns
+tidymean[1:10, 1:6]
+
+# Create tidy dataset from step 5
+write.table(tidymean, file="tidy.txt", row.names=FALSE, col.names=TRUE, sep="\t", quote=FALSE)
+
+# Testing a reading of the writen tidy dataset
+datawritetest <- read.table("tidy.txt", header = TRUE) 
+
+datawritetest[1:10, 1:6]
+
+```
+
