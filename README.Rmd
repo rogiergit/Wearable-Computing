@@ -210,9 +210,5 @@ tidymean[1:10, 1:6]
 # Create tidy dataset from step 5
 write.table(tidymean, file="tidy.txt", row.names=FALSE, col.names=TRUE, sep="\t", quote=TRUE)
 
-# Testing a reading of the writen tidy dataset
-datawritetest <- read.table("tidy.txt", header = TRUE) 
-
-datawritetest[1:10, 1:6]
 
 ```

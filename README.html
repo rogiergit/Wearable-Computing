@@ -421,96 +421,8 @@ tidymean &lt;- summarise_each(tidygroup, funs(mean))
 
 # Reapply the clean column names
 colnames(tidymean) &lt;- colnamesclean
-colnamesclean</code></pre>
-<pre><code>##  [1] &quot;subject&quot;                           
-##  [2] &quot;activity&quot;                          
-##  [3] &quot;BodyAcc mean X&quot;                    
-##  [4] &quot;BodyAcc mean Y&quot;                    
-##  [5] &quot;BodyAcc mean Z&quot;                    
-##  [6] &quot;BodyAcc std X&quot;                     
-##  [7] &quot;BodyAcc std Y&quot;                     
-##  [8] &quot;BodyAcc std Z&quot;                     
-##  [9] &quot;GravityAcc mean X&quot;                 
-## [10] &quot;GravityAcc mean Y&quot;                 
-## [11] &quot;GravityAcc mean Z&quot;                 
-## [12] &quot;GravityAcc std X&quot;                  
-## [13] &quot;GravityAcc std Y&quot;                  
-## [14] &quot;GravityAcc std Z&quot;                  
-## [15] &quot;BodyAccJerk mean X&quot;                
-## [16] &quot;BodyAccJerk mean Y&quot;                
-## [17] &quot;BodyAccJerk mean Z&quot;                
-## [18] &quot;BodyAccJerk std X&quot;                 
-## [19] &quot;BodyAccJerk std Y&quot;                 
-## [20] &quot;BodyAccJerk std Z&quot;                 
-## [21] &quot;BodyGyro mean X&quot;                   
-## [22] &quot;BodyGyro mean Y&quot;                   
-## [23] &quot;BodyGyro mean Z&quot;                   
-## [24] &quot;BodyGyro std X&quot;                    
-## [25] &quot;BodyGyro std Y&quot;                    
-## [26] &quot;BodyGyro std Z&quot;                    
-## [27] &quot;BodyGyroJerk mean X&quot;               
-## [28] &quot;BodyGyroJerk mean Y&quot;               
-## [29] &quot;BodyGyroJerk mean Z&quot;               
-## [30] &quot;BodyGyroJerk std X&quot;                
-## [31] &quot;BodyGyroJerk std Y&quot;                
-## [32] &quot;BodyGyroJerk std Z&quot;                
-## [33] &quot;BodyAccMag mean&quot;                   
-## [34] &quot;BodyAccMag std&quot;                    
-## [35] &quot;GravityAccMag mean&quot;                
-## [36] &quot;GravityAccMag std&quot;                 
-## [37] &quot;BodyAccJerkMag mean&quot;               
-## [38] &quot;BodyAccJerkMag std&quot;                
-## [39] &quot;BodyGyroMag mean&quot;                  
-## [40] &quot;BodyGyroMag std&quot;                   
-## [41] &quot;BodyGyroJerkMag mean&quot;              
-## [42] &quot;BodyGyroJerkMag std&quot;               
-## [43] &quot;BodyAcc mean X&quot;                    
-## [44] &quot;BodyAcc mean Y&quot;                    
-## [45] &quot;BodyAcc mean Z&quot;                    
-## [46] &quot;BodyAcc std X&quot;                     
-## [47] &quot;BodyAcc std Y&quot;                     
-## [48] &quot;BodyAcc std Z&quot;                     
-## [49] &quot;BodyAcc meanFreq X&quot;                
-## [50] &quot;BodyAcc meanFreq Y&quot;                
-## [51] &quot;BodyAcc meanFreq Z&quot;                
-## [52] &quot;BodyAccJerk mean X&quot;                
-## [53] &quot;BodyAccJerk mean Y&quot;                
-## [54] &quot;BodyAccJerk mean Z&quot;                
-## [55] &quot;BodyAccJerk std X&quot;                 
-## [56] &quot;BodyAccJerk std Y&quot;                 
-## [57] &quot;BodyAccJerk std Z&quot;                 
-## [58] &quot;BodyAccJerk meanFreq X&quot;            
-## [59] &quot;BodyAccJerk meanFreq Y&quot;            
-## [60] &quot;BodyAccJerk meanFreq Z&quot;            
-## [61] &quot;BodyGyro mean X&quot;                   
-## [62] &quot;BodyGyro mean Y&quot;                   
-## [63] &quot;BodyGyro mean Z&quot;                   
-## [64] &quot;BodyGyro std X&quot;                    
-## [65] &quot;BodyGyro std Y&quot;                    
-## [66] &quot;BodyGyro std Z&quot;                    
-## [67] &quot;BodyGyro meanFreq X&quot;               
-## [68] &quot;BodyGyro meanFreq Y&quot;               
-## [69] &quot;BodyGyro meanFreq Z&quot;               
-## [70] &quot;BodyAccMag mean&quot;                   
-## [71] &quot;BodyAccMag std&quot;                    
-## [72] &quot;BodyAccMag meanFreq&quot;               
-## [73] &quot;BodyAccJerkMag mean&quot;               
-## [74] &quot;BodyAccJerkMag std&quot;                
-## [75] &quot;BodyAccJerkMag meanFreq&quot;           
-## [76] &quot;BodyGyroMag mean&quot;                  
-## [77] &quot;BodyGyroMag std&quot;                   
-## [78] &quot;BodyGyroMag meanFreq&quot;              
-## [79] &quot;BodyGyroJerkMag mean&quot;              
-## [80] &quot;BodyGyroJerkMag std&quot;               
-## [81] &quot;BodyGyroJerkMag meanFreq&quot;          
-## [82] &quot;angle BodyAccMean gravity&quot;         
-## [83] &quot;angle BodyAccJerkMean gravityMean&quot; 
-## [84] &quot;angle BodyGyroMean gravityMean&quot;    
-## [85] &quot;angle BodyGyroJerkMean gravityMean&quot;
-## [86] &quot;angle X gravityMean&quot;               
-## [87] &quot;angle Y gravityMean&quot;               
-## [88] &quot;angle Z gravityMean&quot;</code></pre>
-<pre class="r"><code># Check the first 10 rows and 6 columns
+
+# Check the first 10 rows and 6 columns
 tidymean[1:10, 1:6]</code></pre>
 <pre><code>## Source: local data frame [10 x 6]
 ## Groups: subject
@@ -528,34 +440,7 @@ tidymean[1:10, 1:6]</code></pre>
 ## 10       2            WALKING      0.2764266   -0.018594920     -0.1055004
 ## Variables not shown: BodyAcc std X (dbl)</code></pre>
 <pre class="r"><code># Create tidy dataset from step 5
-write.table(tidymean, file=&quot;tidy.txt&quot;, row.names=FALSE, col.names=TRUE, sep=&quot;\t&quot;, quote=TRUE)
-
-# Testing a reading of the writen tidy dataset
-datawritetest &lt;- read.table(&quot;tidy.txt&quot;, header = TRUE) 
-
-datawritetest[1:10, 1:6]</code></pre>
-<pre><code>##    subject           activity BodyAcc.mean.X BodyAcc.mean.Y BodyAcc.mean.Z
-## 1        1             LAYING      0.2215982   -0.040513953     -0.1132036
-## 2        1            SITTING      0.2612376   -0.001308288     -0.1045442
-## 3        1           STANDING      0.2789176   -0.016137590     -0.1106018
-## 4        1            WALKING      0.2773308   -0.017383819     -0.1111481
-## 5        1 WALKING_DOWNSTAIRS      0.2891883   -0.009918505     -0.1075662
-## 6        1   WALKING_UPSTAIRS      0.2554617   -0.023953149     -0.0973020
-## 7        2             LAYING      0.2813734   -0.018158740     -0.1072456
-## 8        2            SITTING      0.2770874   -0.015687994     -0.1092183
-## 9        2           STANDING      0.2779115   -0.018420827     -0.1059085
-## 10       2            WALKING      0.2764266   -0.018594920     -0.1055004
-##    BodyAcc.std.X
-## 1    -0.92805647
-## 2    -0.97722901
-## 3    -0.99575990
-## 4    -0.28374026
-## 5     0.03003534
-## 6    -0.35470803
-## 7    -0.97405946
-## 8    -0.98682228
-## 9    -0.98727189
-## 10   -0.42364284</code></pre>
+write.table(tidymean, file=&quot;tidy.txt&quot;, row.names=FALSE, col.names=TRUE, sep=&quot;\t&quot;, quote=TRUE)</code></pre>
 </div>
 </div>
 

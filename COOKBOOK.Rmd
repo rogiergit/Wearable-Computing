@@ -27,6 +27,7 @@ length(unique(data$activity))
 ## Variables
 * The dataset contains 86 variables that contain the measurements for the subjects and their activities. 
 * The measurements are numerical means of the total dataset
+* The total dataset consisted of a train and test dataset that we're merged together
 
 ```{r}
 data <- read.table("tidy.txt", header = TRUE) 
